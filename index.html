@@ -1,23 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Neighborhood Map</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="vendor/tailwind/tailwind.min.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+	</head>
+	<body>
 
- 
- <!DOCTYPE html>
- <html>
- 	<head>
- 		<meta charset="utf-8">
- 		<title>Resume</title>
- 		<meta name="viewport" content="width=device-width,initial-scale=1">
- 		<link rel="stylesheet" href="vendor/tailwind/tailwind.css">
- 		<link rel="stylesheet" href="css/main.css">
- 	</head>
- 	<body>
+		<div id="map-container">
+			<div id="map" style="">
+			</div>
 
- 		<div id="map"></div>
+			 <div id="loader"></div> 
+		</div>
 
- 		<script src="vendor/knockout/knockout-3.4.2.js"></script>
-    	<script src="js/app.js"></script>
-    	<script async defer
-	        src=
-	        	"https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyANpmF26fZMcFyjW83IQNrhXxFnzWTKIyY&v=3&callback=initMap">
-    	</script>
- 	</body>
+
+
+		<div data-bind="visible: showLocationList" class="location-list cursor-pointer w-full lg:w-1/3  flex-no-shrink text-grey-darkest p-8 over-fixed-map" >
+
+			<!-- ko if: locationsSearchResult().length == 0 -->
+				<div class="p-3 mb-1 bg-grey-lightest">no location found..</div>
+			<!-- /ko -->
+			<ul data-bind="foreach: locationsSearchResult"  class="list-reset opacity-90" >
+				<li data-bind="event: { click: $parent.selectLocation ,mouseover: $parent.highlightLocation, mouseout: $parent.deHighlightLocation  }">
+					<div class="p-3 mb-1 bg-grey-lightest">
+						<span data-bind="text: name"> </span>  <small data-bind='text: address'>&nbsp;</small> 
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<nav class="flex flex-wrap bg-grey-darkest p-3 over-fixed-map">
+			<div class="block" data-bind='click: toggleLocationList'>
+				<button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white">
+				  <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+				</button>
+			  </div>
+			  <div class="block pl-6">
+			 	<i class="fas fa-search pr-2 text-white"></i>
+				<input class="search p-2" data-bind="value: search, valueUpdate: 'keyup'" placeholder="Search" />
+			  </div>
+		</nav>
+
+		<script src="vendor/knockout/knockout-3.4.2.js"></script>
+		<script src="js/models/location.js"></script>
+		<script src="js/viewmodels/location.js"></script>
+		<script src="js/appMap.js"></script>
+		<script src="js/app.js"></script>
+		<script async defer
+			src=
+				"https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=AIzaSyANpmF26fZMcFyjW83IQNrhXxFnzWTKIyY&v=3&callback=initMap"
+			onerror="alert('error: connect to the google api failed!')"
+			>
+		</script>
+	</body>
  </html>

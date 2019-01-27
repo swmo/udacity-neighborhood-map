@@ -1,7 +1,74 @@
+ 
+ #map-container {
+ 	position: fixed; width:100%; height: 100%; top:0px;
+ }
+
  #map {
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	height: 100%;
+  display: block;
+  position:absolute;
+  height:auto;
+  bottom:0;
+  top:0;
+  left:0;
+  right:0;
+  margin-top:60px;
+  margin-bottom:0px;
+  margin-right:0px;
+  margin-left:0px;
+}
+
+.infowindow{
+	max-width: 500px;
+}
+
+.infowindow #streetview{
 	width: 100%;
+	min-width: 400px;
+	height: 300px;
+}
+
+.over-fixed-map{
+	position: relative;
+	z-index: 99;
+}
+
+nav {
+	min-height: 60px;
+	position: fixed !important;
+	width:100%;
+	top:0px;
+	z-index: 100;
+}
+
+.opacity-90 {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)"; // IE8
+  filter: alpha(opacity=90); // IE 5-7
+  opacity: 0.5;
+}
+
+#loader {
+  position: absolute;
+  margin-left: -60px;
+  margin-top: -60px;
+  top: 50%;
+  left: 50%;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 0.3s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.location-list {
+	margin-top:65px;
+}
+
+input.search{
+	min-width: 300px;
 }
