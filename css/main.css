@@ -53,7 +53,7 @@ nav {
   top: 50%;
   left: 50%;
   border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border-top: 16px solid #64d5ca; /* teal-light */
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -71,4 +71,12 @@ nav {
 
 input.search{
 	min-width: 300px;
+}
+
+/** only for Mobile **/
+@media only screen and (max-device-width: 480px) {
+      
+    input.search{
+		min-width: 100px !important;
+	}
 }

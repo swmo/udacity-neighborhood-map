@@ -31,3 +31,5 @@ function initMap() {
 
     console.log(locations);
 }
+
+

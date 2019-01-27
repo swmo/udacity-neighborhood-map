@@ -49,11 +49,6 @@ var ViewModel = function(locations) {
     	//self.lastInterest(place);
     }
 
-    self.deHighlightLocation = function(location) {
-    	self.map.deHighlightLocation(location);
-    	//self.lastInterest(place);
-    }
-
     self.selectLocation = function(location){
     	self.map.selectLocation(location);
     	self.showLocationList(false);
