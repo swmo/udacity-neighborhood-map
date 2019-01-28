@@ -27,6 +27,7 @@ function initMap() {
 
 	vm.bindMap(map);
 	map.setLocations(locations);
+	map.bindViewModel(vm);
 	map.init();
 
     console.log(locations);

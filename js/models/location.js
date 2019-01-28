@@ -6,6 +6,7 @@ var Location = function(id,name,description,address,position) {
 	this.lat = ko.observable(position[0]);
 	this.lng = ko.observable(position[1]);
 	this.description = ko.observable(description);
+	this.wikipediaArticles = ko.observableArray();
 
 	this.getName = function(){
 		return this.name();
@@ -30,4 +31,6 @@ var Location = function(id,name,description,address,position) {
 	this.getDescription = function(){
 		return this.description();
 	}
+
+
 }

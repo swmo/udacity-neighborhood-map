@@ -6,11 +6,12 @@ var ViewModel = function(locations) {
 	this.map = null;
     this.search = ko.observable();
     this.locations = ko.observableArray(locations);
-    this.showLocationList = ko.observable();
+    this.displayLocationList = ko.observable();
+    this.currentLocation = ko.observable();
 
     this.locationsSearchResult = ko.computed(function() {
     	
-    	self.showLocationList(true);
+    	self.displayLocationList(true);
 
         var search = self.search();
 
@@ -40,6 +41,7 @@ var ViewModel = function(locations) {
         ;
     });
 
+
     self.bindMap = function(map){
     	this.map = map
     }
@@ -49,14 +51,69 @@ var ViewModel = function(locations) {
     	//self.lastInterest(place);
     }
 
-    self.selectLocation = function(location){
-    	self.map.selectLocation(location);
-    	self.showLocationList(false);
+    self.setCurrentLocation = function(location){
+        self.currentLocation(location);
+    	self.map.setCurrentLocation(location);
+    	self.displayLocationList(false);
+        
+        wikipediaUrl = 'https://en.wikipedia.org/w/api.php'
+             + '?action=query'
+             + '&format=json'
+             + '&list=geosearch'
+             + '&gscoord='+location.getLat()+'%7C'+location.getLng()
+             + '&gsradius=1000'
+             + '&gslimit=10';
+
+      
+        let currentLocation = self.currentLocation();
+
+            jQuery.ajax({
+                url: wikipediaUrl,
+                dataType: 'jsonp',
+                success: function(data) 
+                {
+                    result = data['query']['geosearch'];
+
+                    if(result.length > 0){
+                         jQuery.each(result, function( key, article ) {
+
+                            let  callbackSetCurrentLocation = function (article,currentLocation) {
+                               currentLocation.wikipediaArticles.push(article);
+                            }
+
+                            let getWikipediaUrl = function (callback,article,currentLocation) {
+                                var wikipediaResolvePageidUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=info&pageids='+article.pageid+'&inprop=url'
+                                jQuery.ajax({
+                                    url: wikipediaResolvePageidUrl,
+                                    dataType: 'jsonp',
+                                    success: function(data) 
+                                    {
+                                        article['url'] = data['query']['pages'][article.pageid]['fullurl'];
+                                        callback(article,currentLocation);
+                                    }   
+                                });
+                            }
+
+                            getWikipediaUrl(callbackSetCurrentLocation,article,currentLocation);
+
+                        });
+                    }
+                    else{
+                        console.log("no wikipedia results found")
+                    }
+                }
+            });
+
+         console.log(self.currentLocation().wikipediaArticles());
+
     }
 
+
+
     this.toggleLocationList = function(){
-    	self.showLocationList(!self.showLocationList());
+    	self.displayLocationList(!self.displayLocationList());
     }
+
 
 
 };

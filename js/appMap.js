@@ -2,9 +2,14 @@ var AppMap = function(provider) {
 
     this.mapProvider = provider;
     this.locations = [];
+    this.vm = null;
 
     this.setLocations = function(locations) {
       this.locations = locations;
+    }
+
+    this.bindViewModel = function(vm){
+      this.vm = vm;
     }
 
     this.init = function(){
@@ -12,7 +17,6 @@ var AppMap = function(provider) {
         this.mapProvider.init(this.locations[i]);
       }
       mapProvider.showLocations(this.locations);
-      
     }
 
     this.highlightLocation = function(location){
@@ -23,8 +27,8 @@ var AppMap = function(provider) {
       this.mapProvider.deHighlightLocation(location);
     }
 
-    this.selectLocation = function(location){
-      this.mapProvider.selectLocation(location);
+    this.setCurrentLocation = function(location){
+      this.mapProvider.setCurrentLocation(location);
     }
 
     this.showLocations = function(locations){
@@ -73,21 +77,18 @@ var GoogleMapsProvider = function(map){
         });
 
        provider = this;
+
        marker.addListener('click', function() {
-       provider.closeAllInfowindows();
-       infowindow.open(this.map, marker);
-       provider.loadMarkerStreetview(marker);
+        //   provider.closeAllInfowindows();
+        //   infowindow.open(this.map, marker);
+        //   provider.loadMarkerStreetview(marker);
+
+          vm.setCurrentLocation(location)
+          // provider.loadWikipediaArticles(location);
       });
 
 
-      var clickMarker = function(provider,location) {
-        return function(e) {
-            provider.highlightLocation(location);
-        }
-      }
-    
-      marker.addListener('click',clickMarker(this, location));
-      
+
       this.markers.push(marker);
       this.infowindows.push(infowindow);
   }
@@ -159,7 +160,7 @@ var GoogleMapsProvider = function(map){
     }
   }
 
-  this.selectLocation = function(location){
+  this.setCurrentLocation = function(location){
     this.closeAllInfowindows();
     this.highlightLocation(location);
     marker = this.getMarkerByLocation(location);
@@ -215,5 +216,6 @@ var GoogleMapsProvider = function(map){
       new google.maps.Size(21,34));
     return markerImage;
   }
+
 
 }
