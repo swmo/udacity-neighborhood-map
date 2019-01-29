@@ -121,9 +121,22 @@ var GoogleMapsProvider = function(map){
       marker.setIcon(this.normalIcon);
     }
 
+
+
     marker = this.getMarkerByLocation(location);
     marker.setAnimation(google.maps.Animation.BOUNCE);
     marker.setIcon(this.highlightedIcon);
+    (function(marker,icon){
+
+      var marker = marker;
+      var icon = icon;
+
+      setTimeout(function(){
+
+        marker.setAnimation(null);
+        marker.setIcon(icon);
+      }, 2000);
+    })(marker,this.normalIcon);    
   }
 
 
@@ -162,7 +175,6 @@ var GoogleMapsProvider = function(map){
 
   this.setCurrentLocation = function(location){
     this.closeAllInfowindows();
-    this.highlightLocation(location);
     marker = this.getMarkerByLocation(location);
 
     bounds = new google.maps.LatLngBounds();
@@ -174,6 +186,8 @@ var GoogleMapsProvider = function(map){
     this.map.fitBounds(bounds);
     this.map.setZoom(zoomBeforeFitBound);
 
+    
+    this.highlightLocation(location);
     this.getInfowindowByLocation(location).open(this.map, marker);
     this.loadMarkerStreetview(marker);
   }

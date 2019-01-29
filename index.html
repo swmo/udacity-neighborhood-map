@@ -53,24 +53,27 @@
 		</nav>
 		
 		<!-- ko if: currentLocation() -->
-		<div id="wikipediaArticles"  class="overflow-y-auto over-fixed-map bg-white p-4 "  data-bind="with: currentLocation()">
+		<div id="wikipediaArticles"  class=" over-fixed-map  p-4"  data-bind="with: currentLocation()">
 
 
 		
 
 
-			<h3 class="text-grey-darkest">related Wikipedia Articles for <span data-bind="text: name"> </span>:</h3>
+			<h3 class="text-grey-darkest p-2 bg-white">near by Wikipedia Articles for <span data-bind="text: name"> </span>:</h3>
 
-			<div  data-bind="foreach: wikipediaArticles">
-	
-			<div class="rounded w-48 overflow-hidden shadow-lg float-left m-1">
-			 
-			  <div class="px-3 py-2 text-center">
-			  	 <i class="fab fa-2x fa-wikipedia-w"></i>
-			    <div class="font-bold text-md mb-2" data-bind="text: title">The Coldest Sunset</div>
-			  
-			  </div>
-			</div>
+			<div  class="overflow-hidden overflow-x-scroll"  style="white-space: nowrap; height:200px;" data-bind="foreach: wikipediaArticles">
+		
+				<div class=" bg-white rounded w-48 h-48 max-w-sm shadow-lg m-1" style="display:inline-block;">
+				 
+				  <div class="px-3 py-2 text-center">
+				  	 <i class="fab fa-2x fa-wikipedia-w"></i>
+				    <div style="white-space: normal" class="font-bold break-words text-md mb-2" data-bind="text: title">
+				    	 
+				    </div>
+				  
+				  </div>
+				</div>
+		
 
 
 			</div>
