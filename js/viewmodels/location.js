@@ -8,6 +8,7 @@ var ViewModel = function(locations) {
     this.locations = ko.observableArray(locations);
     this.displayLocationList = ko.observable();
     this.currentLocation = ko.observable();
+    this.isLoadingWikipedia = ko.observable(false);
 
     this.locationsSearchResult = ko.computed(function() {
     	
@@ -56,6 +57,12 @@ var ViewModel = function(locations) {
     	self.map.setCurrentLocation(location);
     	self.displayLocationList(false);
         
+        // if already some wikipedia Articles loaded (as example open already a marker)
+        if(self.currentLocation().wikipediaArticles() == 0){
+              self.isLoadingWikipedia(true);
+        }
+      
+
         wikipediaUrl = 'https://en.wikipedia.org/w/api.php'
              + '?action=query'
              + '&format=json'
@@ -66,19 +73,19 @@ var ViewModel = function(locations) {
 
       
         let currentLocation = self.currentLocation();
-
+        let vm = self;
             jQuery.ajax({
                 url: wikipediaUrl,
                 dataType: 'jsonp',
                 success: function(data) 
                 {
                     result = data['query']['geosearch'];
-
                     if(result.length > 0){
                          jQuery.each(result, function( key, article ) {
 
-                            let  callbackSetCurrentLocation = function (article,currentLocation) {
+                            let callbackSetCurrentLocation = function (article,currentLocation) {
                                currentLocation.wikipediaArticles.push(article);
+                               vm.isLoadingWikipedia(false);
                             }
 
                             let getWikipediaUrl = function (callback,article,currentLocation) {
@@ -99,6 +106,7 @@ var ViewModel = function(locations) {
                         });
                     }
                     else{
+                        vm.isLoadingWikipedia(false);
                         console.log("no wikipedia results found")
                     }
                 }

@@ -89,6 +89,8 @@ var GoogleMapsProvider = function(map){
 
 
 
+
+
       this.markers.push(marker);
       this.infowindows.push(infowindow);
   }
@@ -188,7 +190,11 @@ var GoogleMapsProvider = function(map){
 
     
     this.highlightLocation(location);
-    this.getInfowindowByLocation(location).open(this.map, marker);
+    infowindow =  this.getInfowindowByLocation(location);
+    infowindow.open(this.map, marker);
+    infowindow.addListener('closeclick',function(){
+      vm.setCurrentLocation(null);
+    });
     this.loadMarkerStreetview(marker);
   }
 

@@ -54,18 +54,19 @@ nav {
   opacity: 0.5;
 }
 
+.run-loader{
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #64d5ca; /* teal-light */
+  border-radius: 50%;
+  animation: spin 0.3s linear infinite;
+}
+
 #loader {
   position: absolute;
   margin-left: -60px;
   margin-top: -60px;
   top: 50%;
   left: 50%;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #64d5ca; /* teal-light */
-  border-radius: 50%;
-  width: 120px;
-  height: 120px;
-  animation: spin 0.3s linear infinite;
 }
 
 @keyframes spin {
