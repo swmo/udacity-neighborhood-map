@@ -190,7 +190,4 @@ var ViewModel = function(locations) {
     this.toggleLocationList = function(){
     	self.displayLocationList(!self.displayLocationList());
     }
-
-
-
 };
