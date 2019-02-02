@@ -33,7 +33,7 @@ function initMap() {
 	// add the map provider to the AppMap
 	map = new AppMap(mapProvider);
 
-	//bind the map to the viewModel, so the viewModel can also execute some changes.
+	//bind the map to the viewModel, so the viewModel can also execute some commands.
 	vm.bindMap(map);
 	// set the first locations (if the site gets new loaded all locations are showed)
 	map.setLocations(locations);
