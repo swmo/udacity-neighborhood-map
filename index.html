@@ -76,6 +76,10 @@
 				</div>
 			<!-- /ko -->
 
+			<!-- ko if: wikipediaArticles().length == 0 || wikipediaArticles() == null -->
+			<div class="p-3 m-5 bg-grey-lightest border-teal-light">no articles found..</div>
+			<!-- /ko -->
+
 			<div data-bind="foreach: wikipediaArticles" 
 				 class="overflow-hidden overflow-x-scroll" 
 				 style="white-space: nowrap; height:200px;">
