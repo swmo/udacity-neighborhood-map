@@ -102,6 +102,11 @@ var ViewModel = function(locations) {
 
         //set the current location in ko
         self.currentLocation(location);
+
+        // if the lcoation is null, do not more..
+        if (location == null) {
+            return;
+        }
         // set the current location to the map
     	self.map.setCurrentLocation(location);
         // hide the sidebar / serachlist
