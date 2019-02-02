@@ -1,4 +1,8 @@
 
+/*
+* the simple Model of an location
+* added some getMethods to only read the values.
+*/
 var Location = function(id,name,description,address,position) {
 	this.id = id;
 	this.name = ko.observable(name);
