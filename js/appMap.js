@@ -224,6 +224,7 @@ var GoogleMapsProvider = function(map){
   */
   this.setCurrentLocation = function(location){
 
+
     // first close all other infowindows
     this.closeAllInfowindows();
     // get the marker of the given location
